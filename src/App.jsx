@@ -1,17 +1,18 @@
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-
 import Footer from "./components/Footer";
+import Register from "./pages/Register"; 
+import Login from "./pages/Login";  
+// import Home from "./pages/Home";    
 
 function App() {
   return (
     <>
       <Navbar />
-      <Home />
+      <Register /> 
+       <Login /> 
       <Footer />
     </>
   );
 }
-
 
 export default App;
