@@ -1,32 +1,15 @@
-import { useState } from "react";
-import { pizzaCart } from "../pizzas";
+// src/pages/Cart.jsx
+import { useCart } from "../context/CartContext";
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzaCart);
-
-  const increase = (id) => {
-    setCart(
-      cart.map((p) =>
-        p.id === id ? { ...p, count: p.count + 1 } : p
-      )
-    );
-  };
-
-  const decrease = (id) => {
-    setCart(
-      cart
-        .map((p) =>
-          p.id === id ? { ...p, count: p.count - 1 } : p
-        )
-        .filter((p) => p.count > 0)
-    );
-  };
-
-  const total = cart.reduce((acc, p) => acc + p.price * p.count, 0);
+  const { cart, increase, decrease, total } = useCart();
 
   return (
     <div className="container py-5" style={{ maxWidth: 700 }}>
       <h2 className="mb-4">🛒 Carrito de compras</h2>
+
+      {cart.length === 0 && <p>Tu carrito está vacío</p>}
+
       {cart.map((p) => (
         <div
           key={p.id}
@@ -40,9 +23,12 @@ const Cart = () => {
             />
             <div>
               <h6 className="text-capitalize mb-1">{p.name}</h6>
-              <p className="m-0">${p.price.toLocaleString("es-CL")}</p>
+              <p className="m-0">
+                ${p.price.toLocaleString("es-CL")}
+              </p>
             </div>
           </div>
+
           <div className="d-flex align-items-center gap-2">
             <button
               className="btn btn-outline-danger btn-sm"
@@ -50,7 +36,9 @@ const Cart = () => {
             >
               -
             </button>
+
             <span>{p.count}</span>
+
             <button
               className="btn btn-outline-success btn-sm"
               onClick={() => increase(p.id)}
@@ -64,6 +52,7 @@ const Cart = () => {
       <h4 className="text-end mt-4">
         Total: ${total.toLocaleString("es-CL")}
       </h4>
+
       <button className="btn btn-success w-100 mt-3">Pagar</button>
     </div>
   );

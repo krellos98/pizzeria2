@@ -1,6 +1,6 @@
-// src/pages/Home.jsx
 import { useState, useEffect } from "react";
-import CardPizza from "../pages/CardPizza";
+import CardPizza from "./CardPizza"; 
+
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
@@ -16,6 +16,7 @@ const Home = () => {
       }
     };
 
+    
     obtenerPizzas();
   }, []);
 
@@ -24,6 +25,8 @@ const Home = () => {
       {pizzas.map((pizza) => (
         <CardPizza
           key={pizza.id}
+          id={pizza.id}             
+
           name={pizza.name}
           price={pizza.price}
           img={pizza.img}
